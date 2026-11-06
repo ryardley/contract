@@ -1,5 +1,29 @@
-import artifacts from '@railgun-community/circuit-artifacts';
-import type { Artifact, VKey } from '@railgun-community/circuit-artifacts';
+// The upstream test-artifacts tarball (npm.railgun.org) is unavailable.
+// deploy:test therefore registers no test vkeys; production vkeys are
+// registered separately by demo/src/register-vkeys.ts.
+type VKey = {
+  protocol: string;
+  curve: string;
+  nPublic: number;
+  vk_alpha_1: string[];
+  vk_beta_2: string[][];
+  vk_gamma_2: string[][];
+  vk_delta_2: string[][];
+  IC: string[][];
+};
+type Artifact = {
+  nullifiers: number;
+  commitments: number;
+  vkey: VKey;
+  zkey: Uint8Array;
+  wasm: Uint8Array;
+};
+const artifacts = {
+  getArtifact: (_nullifiers: number, _commitments: number): Artifact => {
+    throw new Error('test circuit artifacts are not installed');
+  },
+  listArtifacts: (): { nullifiers: number; commitments: number }[] => [],
+};
 import { Verifier } from '../../typechain-types';
 
 export interface SolidityG1Point {
